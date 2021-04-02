@@ -82,6 +82,7 @@
               icon="far fa-heart" />
 
               <q-btn
+              @click="deleteTuitte(tuitte)"
               flat
               size=sm
               round
@@ -138,6 +139,13 @@ export default {
         date: Date.now()
       }
       this.tuittes.unshift(newTuitte)
+    },
+    deleteTuitte(tuitte) {
+      console.log('Delete tuitte: ', tuitte)
+      let dateToDelete = tuitte.date
+      let index = this.tuittes.findIndex(tuitte => tuitte.date === dateToDelete)
+      console.log('Index to be deleted: ', index)
+      this.tuittes.splice(index, 1)
     }
   },
   filters: {
