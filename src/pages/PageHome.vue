@@ -46,7 +46,7 @@
         >
           <q-item
             v-for="tuitte in tuittes"
-            :key="tuitte.date"
+            :key="tuitte.id"
             class="tuitte q-py-md">
             <q-item-section avatar top>
               <q-avatar size="xl">
@@ -154,11 +154,11 @@ export default {
       this.newTuitteContent = ''
     },
     deleteTuitte(tuitte) {
-      console.log('Delete tuitte: ', tuitte)
-      let dateToDelete = tuitte.date
-      let index = this.tuittes.findIndex(tuitte => tuitte.date === dateToDelete)
-      console.log('Index to be deleted: ', index)
-      this.tuittes.splice(index, 1)
+        db.collection("tuittes").doc(tuitte.id).delete().then(() => {
+        console.log("Document successfully deleted!")
+      }).catch((error) => {
+        console.error("Error removing document: ", error)
+      })
     }
   },
   filters: {
@@ -170,6 +170,7 @@ export default {
     db.collection('tuittes').orderBy('date').onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
           let tuitteChange = change.doc.data()
+          tuitteChange.id = change.doc.id  // Set ID to Firebase auo-generated ID
           if (change.type === "added") {
             console.log("New tuitte: ", tuitteChange)
             this.tuittes.unshift(tuitteChange)
@@ -179,6 +180,8 @@ export default {
           }
           if (change.type === "removed") {
             console.log("Removed tuitte: ", tuitteChange)
+            let index = this.tuittes.findIndex(tuitte => tuitte.id === tuitteChange.id)
+            this.tuittes.splice(index, 1)
           }
         })
     })
