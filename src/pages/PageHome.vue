@@ -107,6 +107,7 @@
 </template>
 
 <script>
+import db from 'src/boot/firebase'
 import { formatDistance } from 'date-fns'
 
 export default {
@@ -115,7 +116,7 @@ export default {
     return {
       newTuitteContent: '',
       tuittes: [
-        {
+        /* {
           content: 'But I must explain to you how all this mistaken idea of denouncing pleasure \
                     and praising pain was born and I will give you a complete account of the system, and \
                     expound the actual teachings of the great explorer of the truth, the master-builder of \
@@ -132,7 +133,7 @@ export default {
                     chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces \
                     no resultant pleasure?',
           date: 1617400875655
-        }
+        } */
       ]
     }
   },
@@ -143,7 +144,13 @@ export default {
         content: this.newTuitteContent,
         date: Date.now()
       }
-      this.tuittes.unshift(newTuitte)
+      // this.tuittes.unshift(newTuitte)
+      db.collection("tuittes").add(newTuitte).then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      }).catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+
       this.newTuitteContent = ''
     },
     deleteTuitte(tuitte) {
@@ -158,6 +165,23 @@ export default {
     relativeDate(value) {
       return formatDistance(value, new Date())
     }
+  },
+  mounted() {
+    db.collection('tuittes').orderBy('date').onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          let tuitteChange = change.doc.data()
+          if (change.type === "added") {
+            console.log("New tuitte: ", tuitteChange)
+            this.tuittes.unshift(tuitteChange)
+          }
+          if (change.type === "modified") {
+            console.log("Modified tuitte: ", tuitteChange)
+          }
+          if (change.type === "removed") {
+            console.log("Removed tuitte: ", tuitteChange)
+          }
+        })
+    })
   }
 }
 </script>
