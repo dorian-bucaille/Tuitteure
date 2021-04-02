@@ -1,109 +1,108 @@
 <template>
-  <q-page>
-    <div class="q-py-lg q-px-md row items-end q-col-gutter-sm">
+  <q-page class="relative-position">
+    <q-scroll-area class="absolute fullscreen">
+      <div class="q-py-lg q-px-md row items-end q-col-gutter-sm">
 
-      <div class="col">
-        <q-input
-          autogrow
-          class="new-tuitte"
-          bottom-slots
-          v-model="newTuitteContent"
-          placeholder="What's up?"
-          counter
-          maxlength="420">
-          <template v-slot:before>
-            <q-avatar size="xl">
-              <img src="https://avatars.githubusercontent.com/u/74455265?v=4" alt="Your profile picture">
-            </q-avatar>
-          </template>
-        </q-input>
-      </div>
-
-      <div class="col col-shrink">
-        <q-btn
-              @click="addNewTuitte"
-              :disable="!newTuitteContent"
-              class="q-mb-lg"
-              unelevated
-              rounded
-              no-caps
-              color="primary"
-              label="Tuitte" />
-      </div>
-    </div>
-
-    <q-separator
-      class="divider"
-      size="10px"
-      color="grey-1" />
-
-    <q-list separator>
-      <transition-group
-        appear
-        enter-active-class="animated jackInTheBox slow"
-        leave-active-class="animated fadeOutRight slow"
-      >
-        <q-item
-          v-for="tuitte in tuittes"
-          :key="tuitte.date"
-          class="tuitte q-py-md">
-          <q-item-section avatar top>
-            <q-avatar size="xl">
+        <div class="col">
+          <q-input
+            autogrow
+            class="new-tuitte"
+            bottom-slots
+            v-model="newTuitteContent"
+            placeholder="What's up?"
+            counter
+            maxlength="420">
+            <template v-slot:before>
+              <q-avatar size="xl">
                 <img src="https://avatars.githubusercontent.com/u/74455265?v=4" alt="Your profile picture">
               </q-avatar>
-          </q-item-section>
+            </template>
+          </q-input>
+        </div>
 
-          <q-item-section>
-            <q-item-label class="text-subtitle1">
-              <strong>Dorian Bucaille</strong>
-              <span class="text-grey-7">
-                @dorian_bucaille
-              </span>
-            </q-item-label>
+        <div class="col col-shrink">
+          <q-btn
+                @click="addNewTuitte"
+                :disable="!newTuitteContent"
+                class="q-mb-lg"
+                unelevated
+                rounded
+                no-caps
+                color="primary"
+                label="Tuitte" />
+        </div>
+      </div>
 
-            <q-item-label class="tuitte-content text-body1">{{tuitte.content}}
-            </q-item-label>
+      <q-separator
+        class="divider"
+        size="10px"
+        color="grey-1" />
 
-            <div class="tuitte-icons row justify-between q-mt-sm">
-              <q-btn
-                flat
-                size=sm
-                round
-                color="grey"
-                icon="far fa-comment" />
+      <q-list separator>
+        <transition-group
+          appear
+          enter-active-class="animated jackInTheBox slow"
+          leave-active-class="animated fadeOutRight slow"
+        >
+          <q-item
+            v-for="tuitte in tuittes"
+            :key="tuitte.date"
+            class="tuitte q-py-md">
+            <q-item-section avatar top>
+              <q-avatar size="xl">
+                  <img src="https://avatars.githubusercontent.com/u/74455265?v=4" alt="Your profile picture">
+                </q-avatar>
+            </q-item-section>
 
+            <q-item-section>
+              <q-item-label class="text-subtitle1">
+                <strong>Dorian Bucaille</strong>
+                <span class="text-grey-7">
+                  @dorian_bucaille
+                  <br class="lt-md">&bull; {{ tuitte.date | relativeDate}} ago
+                </span>
+              </q-item-label>
+
+              <q-item-label class="tuitte-content text-body1">{{tuitte.content}}
+              </q-item-label>
+
+              <div class="tuitte-icons row justify-between q-mt-sm">
                 <q-btn
-                flat
-                size=sm
-                round
-                color="grey"
-                icon="fas fa-retweet" />
+                  flat
+                  size=sm
+                  round
+                  color="grey"
+                  icon="far fa-comment" />
 
-                <q-btn
-                flat
-                size=sm
-                round
-                color="grey"
-                icon="far fa-heart" />
+                  <q-btn
+                  flat
+                  size=sm
+                  round
+                  color="grey"
+                  icon="fas fa-retweet" />
 
-                <q-btn
-                @click="deleteTuitte(tuitte)"
-                flat
-                size=sm
-                round
-                color="grey"
-                icon="fas fa-trash" />
-            </div>
+                  <q-btn
+                  flat
+                  size=sm
+                  round
+                  color="grey"
+                  icon="far fa-heart" />
 
-          </q-item-section>
+                  <q-btn
+                  @click="deleteTuitte(tuitte)"
+                  flat
+                  size=sm
+                  round
+                  color="grey"
+                  icon="fas fa-trash" />
+              </div>
 
-          <q-item-section side top>
-            {{ tuitte.date | relativeDate}} ago
-          </q-item-section>
-        </q-item>
-      </transition-group>
-    </q-list>
+            </q-item-section>
 
+          </q-item>
+        </transition-group>
+      </q-list>
+    </q-scroll-area>
   </q-page>
 </template>
 
