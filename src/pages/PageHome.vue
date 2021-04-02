@@ -36,8 +36,11 @@
       size="10px"
       color="grey-1" />
 
-    <q-list>
-      <q-item class="q-py-md">
+    <q-list separator>
+      <q-item
+        v-for="tuitte in tuittes"
+        :key="tuitte.date"
+        class="q-py-md">
         <q-item-section avatar top>
           <q-avatar size="xl">
               <img src="https://avatars.githubusercontent.com/u/74455265?v=4" alt="Your profile picture">
@@ -52,9 +55,7 @@
             </span>
           </q-item-label>
 
-          <q-item-label class="tuitte-content text-body1">Hello there :) Hope you're doing good! I am currently working on this Twitter clone
-            project by watching a great tutorial from freeCodeCamp.org.
-            It is a really good channel, they have taught me a lot about coding!
+          <q-item-label class="tuitte-content text-body1">{{tuitte.content}}
           </q-item-label>
 
           <div class="tuitte-icons row justify-between q-mt-sm">
@@ -90,7 +91,7 @@
         </q-item-section>
 
         <q-item-section side top>
-          1 min ago
+          {{ tuitte.date | relativeDate}} ago
         </q-item-section>
       </q-item>
     </q-list>
@@ -99,11 +100,38 @@
 </template>
 
 <script>
+import { formatDistance } from 'date-fns'
+
 export default {
   name: 'PageHome',
   data() {
     return {
-      newTuitteContent: ''
+      newTuitteContent: '',
+      tuittes: [
+        {
+          content: 'But I must explain to you how all this mistaken idea of denouncing pleasure \
+                    and praising pain was born and I will give you a complete account of the system, and \
+                    expound the actual teachings of the great explorer of the truth, the master-builder of \
+                    human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is \
+                    pleasure, but because those who do not know how to pursue pleasure rationally encounter \
+                    consequences that are extremely painful.',
+          date: 1617400832717
+        },
+        {
+          content: 'Nor again is there anyone who loves or pursues or desires to obtain pain of itself, \
+                    because it is pain, but because occasionally circumstances occur in which toil and pain can procure \
+                    him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical \
+                    exercise, except to obtain some advantage from it? But who has any right to find fault with a man who \
+                    chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces \
+                    no resultant pleasure?',
+          date: 1617400875655
+        }
+      ]
+    }
+  },
+  filters: {
+    relativeDate(value) {
+      return formatDistance(value, new Date())
     }
   }
 }

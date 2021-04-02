@@ -6,3 +6,7 @@ Color wheel (https://color.adobe.com/create/color-wheel) :
 #F59123 <<< base color
 #361F07 <<< dark
 #DB801F
+
+Hello there :) Hope you're doing good! I am currently working on this Twitter clone
+            project by watching a great tutorial from freeCodeCamp.org.
+            It is a really good channel, they have taught me a lot about coding!
