@@ -21,6 +21,7 @@
 
       <div class="col col-shrink">
         <q-btn
+              @click="addNewTuitte"
               :disable="!newTuitteContent"
               class="q-mb-lg"
               unelevated
@@ -127,6 +128,16 @@ export default {
           date: 1617400875655
         }
       ]
+    }
+  },
+  methods: {
+    addNewTuitte() {
+      console.log('addNewTuitte')
+      let newTuitte = {
+        content: this.newTuitteContent,
+        date: Date.now()
+      }
+      this.tuittes.unshift(newTuitte)
     }
   },
   filters: {
