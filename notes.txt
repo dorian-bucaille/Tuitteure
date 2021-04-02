@@ -1,0 +1,8 @@
+A cross-platform Twitter clone project using Vue.js, Quasar Framework and Firebase.
+
+Color wheel (https://color.adobe.com/create/color-wheel) :
+#B56A19
+#754510 <<< shadow ?
+#F59123 <<< base color
+#361F07 <<< dark
+#DB801F
