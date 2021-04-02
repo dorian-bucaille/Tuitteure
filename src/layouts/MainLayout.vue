@@ -77,6 +77,18 @@
           <q-item-section>
             <q-item-label overline class="text-grey">Trending in your city</q-item-label>
             <q-item-label class="text-weight-bold">Dog saved by his old man</q-item-label>
+            <q-item-label caption>Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item class="q-pa-md">
+          <q-item-section>
+            <q-item-label overline class="text-grey">#Politics</q-item-label>
+            <q-item-label class="text-weight-bold">Greenland declares war to Tasmania</q-item-label>
             <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
           </q-item-section>
 
@@ -87,20 +99,8 @@
 
         <q-item class="q-pa-md">
           <q-item-section>
-            <q-item-label overline class="text-grey">Trending in your city</q-item-label>
-            <q-item-label class="text-weight-bold">Dog saved by his old man</q-item-label>
-            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
-          </q-item-section>
-
-          <q-item-section side top>
-            <q-item-label caption>5 min ago</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item class="q-pa-md">
-          <q-item-section>
-            <q-item-label overline class="text-grey">Trending in your city</q-item-label>
-            <q-item-label class="text-weight-bold">Dog saved by his old man</q-item-label>
+            <q-item-label overline class="text-grey">#ESport</q-item-label>
+            <q-item-label class="text-weight-bold">Esport scene has built up a lot during the last few...</q-item-label>
             <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
           </q-item-section>
 
@@ -114,7 +114,9 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </q-page-container>
 
   </q-layout>
