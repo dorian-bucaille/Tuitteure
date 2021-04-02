@@ -38,64 +38,70 @@
       color="grey-1" />
 
     <q-list separator>
-      <q-item
-        v-for="tuitte in tuittes"
-        :key="tuitte.date"
-        class="q-py-md">
-        <q-item-section avatar top>
-          <q-avatar size="xl">
-              <img src="https://avatars.githubusercontent.com/u/74455265?v=4" alt="Your profile picture">
-            </q-avatar>
-        </q-item-section>
+      <transition-group
+        appear
+        enter-active-class="animated jackInTheBox slow"
+        leave-active-class="animated fadeOutRight slow"
+      >
+        <q-item
+          v-for="tuitte in tuittes"
+          :key="tuitte.date"
+          class="tuitte q-py-md">
+          <q-item-section avatar top>
+            <q-avatar size="xl">
+                <img src="https://avatars.githubusercontent.com/u/74455265?v=4" alt="Your profile picture">
+              </q-avatar>
+          </q-item-section>
 
-        <q-item-section>
-          <q-item-label class="text-subtitle1">
-            <strong>Dorian Bucaille</strong>
-            <span class="text-grey-7">
-              @dorian_bucaille
-            </span>
-          </q-item-label>
+          <q-item-section>
+            <q-item-label class="text-subtitle1">
+              <strong>Dorian Bucaille</strong>
+              <span class="text-grey-7">
+                @dorian_bucaille
+              </span>
+            </q-item-label>
 
-          <q-item-label class="tuitte-content text-body1">{{tuitte.content}}
-          </q-item-label>
+            <q-item-label class="tuitte-content text-body1">{{tuitte.content}}
+            </q-item-label>
 
-          <div class="tuitte-icons row justify-between q-mt-sm">
-            <q-btn
-              flat
-              size=sm
-              round
-              color="grey"
-              icon="far fa-comment" />
-
+            <div class="tuitte-icons row justify-between q-mt-sm">
               <q-btn
-              flat
-              size=sm
-              round
-              color="grey"
-              icon="fas fa-retweet" />
+                flat
+                size=sm
+                round
+                color="grey"
+                icon="far fa-comment" />
 
-              <q-btn
-              flat
-              size=sm
-              round
-              color="grey"
-              icon="far fa-heart" />
+                <q-btn
+                flat
+                size=sm
+                round
+                color="grey"
+                icon="fas fa-retweet" />
 
-              <q-btn
-              @click="deleteTuitte(tuitte)"
-              flat
-              size=sm
-              round
-              color="grey"
-              icon="fas fa-trash" />
-          </div>
+                <q-btn
+                flat
+                size=sm
+                round
+                color="grey"
+                icon="far fa-heart" />
 
-        </q-item-section>
+                <q-btn
+                @click="deleteTuitte(tuitte)"
+                flat
+                size=sm
+                round
+                color="grey"
+                icon="fas fa-trash" />
+            </div>
 
-        <q-item-section side top>
-          {{ tuitte.date | relativeDate}} ago
-        </q-item-section>
-      </q-item>
+          </q-item-section>
+
+          <q-item-section side top>
+            {{ tuitte.date | relativeDate}} ago
+          </q-item-section>
+        </q-item>
+      </transition-group>
     </q-list>
 
   </q-page>
@@ -139,6 +145,7 @@ export default {
         date: Date.now()
       }
       this.tuittes.unshift(newTuitte)
+      this.newTuitteContent = ''
     },
     deleteTuitte(tuitte) {
       console.log('Delete tuitte: ', tuitte)
@@ -166,6 +173,9 @@ export default {
   border-top: 1px solid
   border-bottom: 1px solid
   border-color: $grey-4
+
+.tuitte:not(:first-child)
+  border-top: 1px solid rgba(0, 0, 0, 0.12)
 
 .tuitte-content
   white-space: pre-line
