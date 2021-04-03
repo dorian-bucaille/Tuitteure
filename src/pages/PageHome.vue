@@ -2,7 +2,8 @@
   <q-page class="relative-position">
     <q-scroll-area class="absolute full-width full-height">
       <div class="q-py-lg q-px-md row items-end q-col-gutter-sm">
-
+        
+        <!-- Writing zone -->
         <div class="col">
           <q-input
             autogrow
@@ -20,6 +21,7 @@
           </q-input>
         </div>
 
+        <!-- Tuitte button -->
         <div class="col col-shrink">
           <q-btn
                 @click="addNewTuitte"
@@ -33,27 +35,36 @@
         </div>
       </div>
 
+      <!-- Separator between writing zone and timeline -->
       <q-separator
-        class="divider"
+      divider_dark
+        :class="isDarkMode() ? 'divider_dark' : 'divider_light'"
         size="10px"
-        color="grey-1" />
+        :color="isDarkMode() ? 'black' : 'grey-1'"/>
 
+      <!-- Timeline -->
       <q-list separator>
+
+        <!-- Animations -->
         <transition-group
           appear
           enter-active-class="animated jackInTheBox slow"
           leave-active-class="animated fadeOutRight slow"
         >
+          <!-- Tuitte -->
           <q-item
             v-for="tuitte in tuittes"
             :key="tuitte.id"
             class="tuitte q-py-md">
+
+            <!-- Profile picture -->
             <q-item-section avatar top>
               <q-avatar size="xl">
                   <img src="https://avatars.githubusercontent.com/u/74455265?v=4" alt="Your profile picture">
                 </q-avatar>
             </q-item-section>
 
+            <!-- Name, username and date -->
             <q-item-section>
               <q-item-label class="text-subtitle1">
                 <strong>Dorian Bucaille</strong>
@@ -63,10 +74,14 @@
                 </span>
               </q-item-label>
 
+              <!-- Actual tuitte content -->
               <q-item-label class="tuitte-content text-body1">{{tuitte.content}}
               </q-item-label>
 
+              <!-- Action buttons -->
               <div class="tuitte-icons row justify-between q-mt-sm">
+                
+                <!-- Comment -->
                 <q-btn
                   flat
                   size=sm
@@ -74,6 +89,7 @@
                   color="grey"
                   icon="far fa-comment" />
 
+                  <!-- Retuitte -->
                   <q-btn
                   flat
                   size=sm
@@ -81,6 +97,7 @@
                   color="grey"
                   icon="fas fa-retweet" />
 
+                  <!-- Like -->
                   <q-btn
                   @click="toggleLiked(tuitte)"
                   flat
@@ -89,6 +106,7 @@
                   :color="tuitte.liked ? 'red' : 'grey'"
                   :icon="tuitte.liked ? 'fas fa-heart' : 'far fa-heart'" />
 
+                  <!-- Delete -->
                   <q-btn
                   @click="deleteTuitte(tuitte)"
                   flat
@@ -97,7 +115,6 @@
                   color="grey"
                   icon="fas fa-trash" />
               </div>
-
             </q-item-section>
 
           </q-item>
@@ -179,6 +196,14 @@ export default {
           // The document probably doesn't exist.
           console.error("Error updating document: ", error)
       })
+    },
+
+    toggleDark() {
+      this.$q.dark.set(!this.$q.dark.isActive)
+    },
+    
+    isDarkMode() {
+      return this.$q.dark.isActive
     }
   },
   filters: {
@@ -217,10 +242,15 @@ export default {
     font-size: 20px
     line-height: 1.4 !important
 
-.divider
+.divider_light
   border-top: 1px solid
   border-bottom: 1px solid
   border-color: $grey-4
+
+.divider_dark
+  border-top: 1px solid
+  border-bottom: 1px solid
+  border-color: $grey-8
 
 .tuitte:not(:first-child)
   border-top: 1px solid rgba(0, 0, 0, 0.12)
